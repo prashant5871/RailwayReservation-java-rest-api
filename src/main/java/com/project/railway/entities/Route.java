@@ -10,8 +10,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "train_station")
-public class TrainStation {
+@Table(name = "route")
+public class Route {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class TrainStation {
 
     public int fare;
 
-	public TrainStation(int id, int trainId, int stationId, int fare) {
+	public Route(int id, int trainId, int stationId, int fare) {
 		super();
 		this.id = id;
 		this.trainId = trainId;
@@ -33,7 +33,7 @@ public class TrainStation {
 		this.fare = fare;
 	}
 	
-	public TrainStation() {}
+	public Route() {}
 
 	public int getId() {
 		return id;

@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -28,12 +29,12 @@ public class Train {
     @Column(name = "departure_time")
     public Date departureTime;
 
-    @OneToOne
-    @JoinColumn(name = "source_id")
+    @ManyToOne
+    @JoinColumn(name = "source_id",unique = false)
     public Station source;
 
-    @OneToOne
-    @JoinColumn(name="destination_id")
+    @ManyToOne
+    @JoinColumn(name="destination_id",unique = false)
     public Station destination;
     
     

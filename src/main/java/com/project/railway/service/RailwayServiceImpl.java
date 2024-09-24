@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.project.railway.dao.RailwayDao;
 import com.project.railway.entities.Station;
 import com.project.railway.entities.Train;
-import com.project.railway.entities.TrainStation;
+import com.project.railway.entities.Route;
 
 import jakarta.transaction.Transactional;
 
@@ -37,9 +37,9 @@ public class RailwayServiceImpl implements RailwayService {
     }
 
     @Transactional
-    public TrainStation addRoute(TrainStation trainStation)
+    public Route addRoute(Route route)
     {
-        return railwayDao.addRoute(trainStation);
+        return railwayDao.addRoute(route);
     }
     
     public List<Train> searchTrain(String source,String destination)

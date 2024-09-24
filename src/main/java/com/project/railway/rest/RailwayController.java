@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.railway.entities.Station;
 import com.project.railway.entities.Train;
-import com.project.railway.entities.TrainStation;
+import com.project.railway.entities.Route;
 import com.project.railway.service.RailwayService;
 import com.project.railway.service.RailwayServiceImpl;
 
@@ -27,30 +27,30 @@ public class RailwayController {
         this.railwayService = railwayService;
     }
 
-    @PostMapping("/addTrain")
-    public Train addTrain(@RequestBody Train train)
-    {
-        return railwayService.saveTrain(train);
-    }
+//    @PostMapping("/addTrain")
+//    public Train addTrain(@RequestBody Train train)
+//    {
+//        return railwayService.saveTrain(train);
+//    }
 
-    @PostMapping("/addStation")
-    public Station addStation(@RequestBody Station station)
-    {
-        return railwayService.saveStation(station);
-    }
+//    @PostMapping("/addStation")
+//    public Station addStation(@RequestBody Station station)
+//    {
+//        return railwayService.saveStation(station);
+//    }
 
-    @PostMapping("/addRoute")
-    public TrainStation addRoute(@RequestBody TrainStation trainStation)
-    {
-        return railwayService.addRoute(trainStation);
-    }
+//    @PostMapping("/addRoute")
+//    public Route addRoute(@RequestBody Route route)
+//    {
+//        return railwayService.addRoute(route);
+//    }
     
-    @GetMapping("/searchTrain/{source}/{destination}")
-    public List<Train> searchTrain(@PathVariable String source,@PathVariable String destination)
-    {
-    	return railwayService.searchTrain(source,destination);
-    	
-    }
+//    @GetMapping("/searchTrain/{source}/{destination}")
+//    public List<Train> searchTrain(@PathVariable String source,@PathVariable String destination)
+//    {
+//    	return railwayService.searchTrain(source,destination);
+//    	
+//    }
     
 
 }

@@ -1,39 +1,42 @@
 package com.project.railway.dao;
 
 import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.railway.entities.Station;
 import com.project.railway.entities.Train;
-import com.project.railway.entities.Route;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 @Repository
-public class RailwayDaoImpl implements RailwayDao {
-
-	private EntityManager entityManager;
+public class TrainDaoImpl implements TrainDao {
+	public EntityManager entityManager;
 
 	@Autowired
-	public RailwayDaoImpl(EntityManager theEntityManager) {
-		entityManager = theEntityManager;
+	public TrainDaoImpl(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
 
 	public Train saveTrain(Train train) {
-		entityManager.persist(train);
-		return train;
+		train.setTrainNo(0);
+		return entityManager.merge(train);
 	}
 
-	public Station saveStation(Station station) {
-		entityManager.persist(station);
-		return station;
+	public List<Train> getTrains() {
+		TypedQuery<Train> query = entityManager.createQuery("FROM Train", Train.class);
+
+		List<Train> trains = query.getResultList();
+
+		return trains;
+
 	}
 
-	public Route addRoute(Route route) {
-		entityManager.persist(route);
-		return route;
+	public Train findById(int id) {
+		Train t = entityManager.find(Train.class, id);
+		return t;
 	}
 
 	public List<Train> searchTrain(String source, String destination) {
@@ -95,7 +98,7 @@ public class RailwayDaoImpl implements RailwayDao {
 
 		// Adjust the query to return a List<Object[]>
 		TypedQuery<Object[]> result = entityManager.createQuery(
-				"select t1.trainId, (t1.fare - t2.fare) from Route as t1, Route as t2 where t1.stationId = :param1 and t2.stationId = :param2 and t1.trainId = t2.trainId",
+				"select r1.trainId, (r1.fare - r2.fare) from Route as r1, Route as r2 where r1.stationId = :param1 and r2.stationId = :param2 and r1.trainId = r2.trainId",
 				Object[].class);
 
 		result.setParameter("param1", source_id);
@@ -125,6 +128,14 @@ public class RailwayDaoImpl implements RailwayDao {
 		}
 
 		return trains;
+	}
+
+	@Override
+	public String deleteTrain(int trainId) {
+		Train train = entityManager.find(Train.class, trainId);
+		entityManager.remove(train);
+		
+		return "Train deleted Succesfully";
 	}
 
 }
